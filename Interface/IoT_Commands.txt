@@ -1,0 +1,88 @@
+
+schedule.every(1).hours.at(":08").do( maxOneWell.replenishmentCycle )
+
+schedule.every(1).hours.at(":08").do( maxOneWell.replenishmentCycle )
+
+
+
+### References
+# WetAI Gym-- http://128.114.78.6/edit/Projects/wetai-gym/maxwell/maxwellEnv.py
+
+
+
+
+### Zambezi
+schedule.every().minute.do( maxOneWell.replenishmentCycle )
+
+
+
+### Maxone
+maxone.setRecording(data_path="/home/mxwbio/wetai/Data/sisyphus2", config="/home/mxwbio/wetai/Configs/sisyphus2.cfg", record_only_spikes=False, minutes=5, gain=512)
+maxone.setDrive("/media/mxwbio/automated/sisyphus2")
+#schedule.every(1).hours.at(":00").until("2022-08-30 09:00").do( maxone.record_test )
+schedule.every(1).hours.at(":00").do( maxone.record_drive )
+schedule.every(1).hours.at(":15").do( maxone.record_drive )
+schedule.every(1).hours.at(":30").do( maxone.record_drive )
+schedule.every(1).hours.at(":45").do( maxone.record_drive )
+
+
+### Dinolite
+#schedule.every(1).hours.at(":11").until("2022-08-29 09:00").do( take_photo, camera="/dev/video0", filename="f" )
+schedule.every(1).hours.at(":11").do( take_photo, camera="/dev/video0", filename="f" )
+schedule.every(1).hours.at(":26").do( take_photo, camera="/dev/video0", filename="f" )
+schedule.every(1).hours.at(":41").do( take_photo, camera="/dev/video0", filename="f" )
+schedule.every(1).hours.at(":56").do( take_photo, camera="/dev/video0", filename="f" )
+
+
+schedule.every(10).second.until("2022-08-25 20:17").do( maxone.test_record )
+schedule.every(10).minutes.until("2022-08-26 09:00").do( maxone.test_record )
+
+
+### Devices
+# zambezi : schedule.every().hour.at(":20").do( maxone.replenishmentCycle() )
+# maxone_2 : schedule.every().hour.at(":00").do( maxone.replenishmentCycle() )
+# dinolite_1 : schedule.every(1).hours.at(":08").until("2022-08-29 09:00").do( take_photo, camera="/dev/video0", filename="f" )
+
+take_photo( camera="/dev/video0", filename="f" )
+
+
+schedule.every(1).hours.at(":40").until("2022-08-04 15:00").do( take_photo, camera="/dev/video0", filename="friday_experiment" )
+maxone.prepareRecording( data_path="/home/mxwbio/wetai/Data/test", config="/home/mxwbio/wetai/Configs/test.cfg", record_only_spikes=False, minutes=58, gain=512 )
+schedule.every(1).hours.at(":00").until("2022-08-04 15:00").do( maxone.smart_record )
+
+### Experiment command
+
+
+
+#####################
+### Maxone Commands
+#####################
+# IoT Commands for the Maxone System
+# To Start IoT: python3 main_ephys_iot.py 
+# Device name: maxone_1
+
+# Start WetAI
+os.system( "sudo -S docker start wetai" )
+
+# Stop Wetai
+os.system("echo mxwbio | sudo -S docker stop wetai")
+
+# Turn on MaxOne Hub
+maxone.turn_on()
+
+# Turn off MaxOne Hub
+maxone.turn_off()
+
+# Prepare a Recording
+maxone.prepareRecording()
+# parameters 1: data_path="/home/mxwbio/wetai/Data/test", config="/home/mxwbio/wetai/Configs/test_small.cfg", record_only_spikes=False, minutes=1, gain=512
+# parameters 2: data_path="/home/mxwbio/wetai/Data/test", config="/home/mxwbio/wetai/Configs/test.cfg", record_only_spikes=False, minutes=1, gain=512
+
+
+# Run Recording
+maxone.smart_record()
+
+#OLD maxone.record(data_path="/home/mxwbio/wetai/Data/test", config="/home/mxwbio/wetai/Configs/test.cfg", record_only_spikes=False, minutes=1, gain=512)
+
+# Temp
+maxone.prepareRecording(data_path="/home/mxwbio/wetai/Data/test", config="/home/mxwbio/wetai/Configs/test.cfg", record_only_spikes=False, minutes=1, gain=512)

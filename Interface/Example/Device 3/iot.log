@@ -1,0 +1,3 @@
+2022-10-14 17:41:13 PDT - Run Command: schedule.every().hour.at(":00").do( sayHello, name='Alice')
+2022-10-14 18:00:00 PDT - Running job Job(interval=1, unit=hours, do=sayHello, args=(), kwargs={'name': 'Alice'})
+2022-10-14 18:01:57 PDT - Run Command: global iot_status; iot_status='shutdown'
